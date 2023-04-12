@@ -17,10 +17,10 @@ const TopicPrefix = "cleovon/test"
 // Configuration parameters
 var (
 	brokerConfig = config.ServicePropertyMap{
-		config.TransportLayerPropertyHost:                "tcps://mr-connection-kcvr73h8jm9.messaging.solace.cloud:55443",
-		config.ServicePropertyVPNName:                    "sinistro",
-		config.AuthenticationPropertySchemeBasicUserName: "solace-cloud-client",
-		config.AuthenticationPropertySchemeBasicPassword: "ji1f7t2e42r63tgru9mai84pa1",
+		config.TransportLayerPropertyHost:                "tcp://192.168.0.100:55555",
+		config.ServicePropertyVPNName:                    "zecomeia",
+		config.AuthenticationPropertySchemeBasicUserName: "catatau",
+		config.AuthenticationPropertySchemeBasicPassword: "catatau",
 	}
 	messagingService    solace.MessagingService
 	persistentPublisher solace.PersistentMessagePublisher
@@ -30,7 +30,7 @@ var (
 func PublishReceiptListener(receipt solace.PublishReceipt) {
 	fmt.Println("Received a Publish Receipt from the broker")
 	// fmt.Println("IsPersisted: ", receipt.IsPersisted())
-	// fmt.Println("Message : ", receipt.GetMessage())
+	fmt.Println("Message : ", receipt.GetMessage())
 	if receipt.GetError() != nil {
 		fmt.Println("Gauranteed Message is NOT persisted on the broker! Received NAK")
 		fmt.Println("Error is: ", receipt.GetError())
@@ -42,7 +42,7 @@ func PublishReceiptListener(receipt solace.PublishReceipt) {
 	}
 }
 
-func init() {
+func ConnectPublisher() {
 	if mS, err := messaging.NewMessagingServiceBuilder().FromConfigurationProvider(brokerConfig).Build(); err != nil {
 		panic(err)
 	} else {
@@ -107,7 +107,7 @@ func PublishMessage(message interface{}, event string) error {
 		return nil
 	}
 
-	return fmt.Errorf("Producer not enabled.")
+	return fmt.Errorf("%s", "Producer not enabled.")
 }
 
 func ClosePublisher() {

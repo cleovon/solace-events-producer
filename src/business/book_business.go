@@ -9,13 +9,13 @@ func SendBookRegisterEvent(book models.Book) map[string]interface{} {
 	err := events.PublishMessage(book, "create")
 	if err != nil {
 		return map[string]interface{}{
-			"returnCode":    0,
-			"returnMessage": "Success",
+			"returnCode":    99,
+			"returnMessage": err.Error(),
 		}
 	}
 
 	return map[string]interface{}{
-		"returnCode":    99,
-		"returnMessage": err.Error(),
+		"returnCode":    0,
+		"returnMessage": "Success",
 	}
 }
