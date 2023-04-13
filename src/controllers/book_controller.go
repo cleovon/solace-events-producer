@@ -9,7 +9,7 @@ import (
 
 func PostBook(c *fiber.Ctx) error {
 	var book models.Book
-	c.BodyParser(book)
+	c.BodyParser(&book)
 	returnBusiness := business.SendBookRegisterEvent(book)
 
 	if returnBusiness["returnCode"] == 0 {
