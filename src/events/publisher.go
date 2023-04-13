@@ -103,6 +103,7 @@ func PublishMessage(message interface{}, event string) error {
 		if publishErr != nil {
 			return publishErr
 		}
+		fmt.Println("The message was published.")
 
 		return nil
 	}
